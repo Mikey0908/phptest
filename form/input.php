@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'validation.php';
+
 header('X-FRAME-OPTIONS:DENY'); /* クリックジャッキング対策 */
 
 // スーパーグローバル変数 9種類ある 連想配列になっている
@@ -20,7 +22,9 @@ function h($str){
 // input.phpのみで作成する
 $pageFlag = 0;
 
-if(!empty($_POST['btn_confirm'])){
+$errors = validation($_POST);
+
+if(!empty($_POST['btn_confirm']) && empty($errors)){
   $pageFlag = 1;
 }
 
@@ -44,6 +48,18 @@ if(!isset($_SESSION['csrfToken'])){
 }
 $token = $_SESSION['csrfToken'];
 ?>
+
+<?php if(!empty($errors) && !empty($_POST['btn_confirm'])) : ?>
+<?php echo '<ul>'; ?>
+<?php
+  foreach( $errors as $error)
+  {
+    echo '<li>'.$error.'</li>';
+  }
+?>
+<?php echo '</ul>';?>
+<?php endif; ?>
+
 <form method="POST" action="input.php">
 氏名
 <input type="text" name="your_name" value="<?php if(!empty($_POST['your_name'])){echo h($_POST['your_name']);}?>">
