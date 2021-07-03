@@ -17,21 +17,4 @@ try{
   exit();
 }
 
-echo '<br>';
-
-const DB_HOST2 = 'mysql:dbname=test;host=127.0.0.1;charset=utf8';
-const DB_USER2 = 'root';
-const DB_PASSWORD2 = '';
-
-// 例外処理 Exception
-try{
-  $pdo2 = new PDO(DB_HOST2, DB_USER2, DB_PASSWORD2);
-  echo '接続成功';
-} catch(PDOException $e){
-  echo '接続失敗'.$e->getMessage() . "\n";
-  exit();
-}
-
-
-
 ?>
