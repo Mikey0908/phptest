@@ -163,6 +163,7 @@ if(!empty($_POST['btn_submit'])){
 
     <input type="submit" name="back" value="戻る">
     <input type="submit" name="btn_submit" value="送信する">
+
     <input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']);?>">
     <input type="hidden" name="email" value="<?php echo h($_POST['email']);?>">
     <input type="hidden" name="url" value="<?php echo h($_POST['url']);?>">
@@ -177,9 +178,13 @@ if(!empty($_POST['btn_submit'])){
     <?php if($pageFlag === 2) : ?>
     <?php if($_POST['csrf'] === $_SESSION['csrfToken']) : ?>
 
-    // DB接続
-    // DB保存
+<?php
+require '../mainte/insert.php';
 
+insertContact($_POST);
+
+
+?>
 
     送信が完了しました
     <?php unset($_SESSION['csrfToken']); ?>
